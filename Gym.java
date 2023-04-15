@@ -4,14 +4,15 @@ public class Gym {
 	
 	public class FireGymLeader {
 	    private String name;
-	    private Pokemon[] pokemons;
+	    private Pokemon[] firepokemons;
+	    static int MyPokemon[] = new int[3];
 
-	    public FireGymLeader(String name) {
+	    public FireGymLeader(String name) {		//불타입 관장
 	        this.name = name;
-	        this.pokemons = new Pokemon[] {
-	            new Pokemon("���ڵ�", "��", 100, 1, 20, 20),
-	            new Pokemon("�Ҳɼ���", "��", 100, 1, 10, 10),
-	            new Pokemon("�Ѳٸ�", "��", 100, 1, 10, 10)
+	        this.firepokemons = new Pokemon[] {
+	            new Pokemon("리자드", "불", 100, 1, 20, 20),
+	            new Pokemon("불꽃숭이", "불", 100, 1, 10, 10),
+	            new Pokemon("뚜꾸리", "불", 100, 1, 10, 10)
 	        };
 	    }
 	    public String getName() {
@@ -19,20 +20,20 @@ public class Gym {
 	    }
 
 	    public Pokemon[] getPokemons() {
-	        return pokemons;
+	        return firepokemons;
 	    }
 	}
 	    
-	    public class WaterGymLeader {
+	    public class WaterGymLeader {			//물타입 관장
 	    	private String name;
 	    	private Pokemon[] pokemons;
 
 	    	public WaterGymLeader(String name) {
 	    		this.name = name;
 	    		this.pokemons = new Pokemon[] {
-	    				new Pokemon("���α�", "��", 100, 1, 10, 10),
-	    				new Pokemon("��¯��", "��", 100, 1, 10, 10),
-	    				new Pokemon("�ص���", "��", 100, 1, 10, 10)
+	    				new Pokemon("꼬부기", "물", 100, 1, 10, 10),
+	    				new Pokemon("물짱이", "물", 100, 1, 10, 10),
+	    				new Pokemon("팽도리", "물", 100, 1, 10, 10)
 	    		};
 	    		
 	    	}
@@ -46,75 +47,154 @@ public class Gym {
 	    }
 	}
 	    
-	    
-	    public static void Attack() {
+	    public static int choosePokemon() {			//내 포켓몬중 배틀에 사용할 포켓몬 3마리 선택
 			
+			return 
+		}
+		
+		public static void MyTurn() {
+			while(true) {
+				System.out.println("1.공격하기 2.아이템 사용 3.교체 4.기권");	//내 턴에 할 일 선택
+				Scanner scanner = new Scanner(System.in);
+				int choice = scanner.nextInt();
+				if(choice>5) {
+					System.out.println("다시 선택하세요");
+					continue;
+				}
+				switch(choice) {
+				case 1:		//공격
+					Attack();
+					break;
+				case 2:		//회복약 사용
+					UseItem();
+					break;
+				case 3:		//교체
+					if() {		//교체할 포캣몬이 남은 경우
+						ChangePokemon();
+						break;
+					}
+					else {		//교체할 포켓몬이 없는 경우
+						System.out.println("교체할 수 있는 포켓몬이 없습니다.");
+						continue;
+					}	
+				case 4:		//기권
+	        		BattleEnd();
+	        		Lose();
+	        		break;
+				}
+			}
+		}
+		
+		public static void EnemyTurn() {				//상대는 공격만 가능
+			System.out.println("적 포켓몬이 공격합니다.");
+			if() {			//상성 우위
+
+				MyPokemon.hp -= (firepokemons.attack)*1.5;		//데미지 1.5배
+				System.out.println("데미지가 굉장합니다!");
+			}	
+			else if() {		//상성 보통
+
+				MyPokemon.hp -= firepokemons.attack;			//데미지 1배
+				System.out.println("데미지가 평범합니다.");
+			}	
+			else {			//상성 열위
+
+				MyPokemon.hp -= (firepokemons.attack)*0.5;		//데미지 0.5배
+				System.out.println("데미지가 별로입니다...");
+			}
+		}
+		
+		public static void Attack() {
+			System.out.println(MyPokemon+"이/가 공격합니다.");
+			if() {			//상성 우위
+
+				EnemyPokemon.hp -= (MyPokemon.attack)*1.5;		//데미지 1.5배
+				System.out.println("데미지가 굉장합니다!");
+			}	
+			else if() {		//상성 보통
+
+				EnemyPokemon.hp -= MyPokemon.attack;			//데미지 1배
+				System.out.println("데미지가 평범합니다.");
+			}	
+			else {			//상성 열위
+
+				EnemyPokemon.hp -= (MyPokemon.attack)*0.5;		//데미지 0.5배
+				System.out.println("데미지가 별로입니다...");
+			}	
 		}
 		
 		public static void UseItem() {
-			
+			Pokemon_center item = new Pokemon_center();
+			System.out.println("체력이 30회복합니다.");				//체력 회복(회복 수치 변경할 수도)
+			item.remedy--;										//회복약 개수 -1
 		}
 		
 		public static void ChangePokemon() {
-			
+			System.out.println("교체할 포켓몬을 골라주세요.");			
 		}
 		
-		public static int BattleEnd() {
+		public static int BattleEnd() {							//상대,내 포켓몬 없는 경우 전투 종료
 			
 			return 0;
 		}
 		
 		public static void Win() {
-			System.out.println("�����մϴ�! ��Ʋ���� �¸��߽��ϴ�!");
+			Pokemon_center item = new Pokemon_center();
+			System.out.println("축하합니다! 배틀에서 승리했습니다!");
+			System.out.println("보상으로 아이템을 얻습니다!");			//승리 보상
+			item.candy++;										//이상한 사탕 얻기
+			item.money+=1000;									//돈 얻기
 		}
 		
 		public static void Lose() {
-			System.out.println("��Ʋ���� �����ϴ�...");
-			System.out.println("���� �Ϻ� �Ҿ�����ϴ�...");
-		}
-		
-		public static void getBadge() {
+			Pokemon_center item = new Pokemon_center();
+			System.out.println("배틀에서 졌습니다...");
+			System.out.println("돈을 일부 잃어버립니다...");
+			item.money-=500;									//패배시돈 잃음
 			
 		}
 
 		
 		public static void main(String[] args) {
-			System.out.println("��� Ʈ���̳ʰ� ��Ÿ����!!");
-			System.out.println("��� Ʈ���̳ʴ� "+ FireGymLeader.pokemons[0] +"�� �����´�!!");
+			
+			System.out.println("배틀에 이용할 포켓몬 3마리를 골라주세요");		//배틀에 이용할 포켓몬 선택
+			for(int i=0;i<3;i++) {
+				MyPokemon[i]=choosePokemon();
+			}
+			
+			
+			System.out.println("체육관 관장이 나타났다!!");
+			System.out.println("체육관 관장은 "+ firepokemons +"을 내보냈다!!");
 			
 			while(true) {
-				System.out.println("1.�����ϱ� 2.������ ��� 3.��ü 4.���");
-				Scanner scanner = new Scanner(System.in);
-				int choice = scanner.nextInt();
-				if(choice>5) {
-					System.out.println("�ٽ� �����ϼ���");
-					continue;
-				}
-				switch(choice) {
-				case 1:
-					System.out.println(MyPokemon+"��/�� �����մϴ�.");
-					Attack();
-					break;
-				case 2:
-					UseItem();
-					break;
-				case 3:
-					ChangePokemon();
-					break;
-				case 4:
-	        		BattleEnd();
-	        		Lose();
-	        		break;
-				}
-				
+				 if (MyPokemon.getSpeed() >= firepokemons.getSpeed()) {		//스피드 빠른 포켓몬부터 턴 시작
+	               MyTurn();
+	               if (BattleEnd()==0) {
+	                   break;
+	               }
+	               EnemyTurn();
+	               if (BattleEnd()==0) {
+	                   break;
+	               }
+	           }
+				 else {
+	               EnemyTurn();
+	               if (BattleEnd()==0) {
+	                   break;
+	               }
+
+	               MyTurn();
+	               if (BattleEnd()==0) {
+	                   break;
+	               }
+	           }
 			}
 			
-			if(FireGymLeader.pokemons==0) {
+			if(firepokemons==0) {		//상대 포켓몬 없으면 승리
 				Win();
 			}
-			else(MyPokemon==0){
+			else(MyPokemon==0){			//내 포켓몬 없으면 패배
 				Lose();
 			}
 		}
-
-}
+	}
