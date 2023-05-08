@@ -1,0 +1,9 @@
+8
+Picachu|ELECTRIC|70|60|
+Pairi|FIRE|78|52|
+Kkobuggi|WATER|88|48|
+Strangeseed|GRASS|90|49|
+Golappaduck|water|100|52|
+Mobuggi|GRASS|96|40|
+Pengdori|WATER|71|53|
+Bulflowermonkey|FIRE|68|61|
