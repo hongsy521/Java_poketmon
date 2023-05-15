@@ -1,17 +1,11 @@
 package PokemonFolder14;
 
 public class Monster {
-    private String name;
-    private int level;
-    private String type;
-    private int hp;
-    private int attack;
-    private int speed;
-    private int growthHp;
-    private int growthAttack;
-    private int evolutionLevel;
 
-    // 생성자
+    public Monster() {
+        System.out.println("플레이어");
+    }
+
     public Monster(String name, int level, String type, int hp, int attack, int speed, int growthHp, int growthAttack, int evolutionLevel) {
         this.name = name;
         this.level = level;
@@ -23,6 +17,20 @@ public class Monster {
         this.growthAttack = growthAttack;
         this.evolutionLevel = evolutionLevel;
     }
+
+    private String name;
+    private int level;
+    private String type;
+    private int hp;
+    private int attack;
+    private int speed;
+    private int growthHp;
+    private int growthAttack;
+    private int evolutionLevel;
+
+   
+
+   
 
     // 게터 메서드들
     public String getName() {

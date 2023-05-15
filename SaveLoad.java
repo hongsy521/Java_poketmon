@@ -4,17 +4,22 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.File;
 
 public class SaveLoad {
     private static final String SAVE_FILE = "pokemon_save.dat";
 
-    public void saveGame() {
+    public void saveGame(PlayerInfo playerInfo, PoDex podex, MonsterData monsterData) {
         try {
-            FileOutputStream fos = new FileOutputStream(SAVE_FILE);
+            String homeDirectory = System.getProperty("user.home");
+            File saveFile = new File(homeDirectory, SAVE_FILE);
+
+            FileOutputStream fos = new FileOutputStream(saveFile);
             ObjectOutputStream oos = new ObjectOutputStream(fos);
 
-            // 게임 데이터를 저장하세요.
-            // 예를 들어, PlayerInfo, PoDex, MonsterData 등을 저장합니다.
+            oos.writeObject(playerInfo);
+            oos.writeObject(podex);
+            oos.writeObject(monsterData);
 
             oos.close();
             fos.close();
@@ -24,14 +29,18 @@ public class SaveLoad {
             e.printStackTrace();
         }
     }
-
-    public void loadGame() {
+  
+    public void loadGame(PlayerInfo playerInfo, PoDex podex, MonsterData monsterData) {
         try {
-            FileInputStream fis = new FileInputStream(SAVE_FILE);
+            String homeDirectory = System.getProperty("user.home");
+            File saveFile = new File(homeDirectory, SAVE_FILE);
+
+            FileInputStream fis = new FileInputStream(saveFile);
             ObjectInputStream ois = new ObjectInputStream(fis);
 
-            // 저장된 게임 데이터를 로드하세요.
-            // 예를 들어, PlayerInfo, PoDex, MonsterData 등을 로드합니다.
+            playerInfo.copy((PlayerInfo) ois.readObject());
+            podex.copy((PoDex) ois.readObject());
+            monsterData.copy((MonsterData) ois.readObject());
 
             ois.close();
             fis.close();
