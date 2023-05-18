@@ -1,73 +1,55 @@
 package PokemonFolder14;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
-public class MonsterData {
-    private ArrayList<Monster> monsters;
-    private ArrayList<Monster> collectedMonsters;
-    private String saveName;
+public class PokemonDataLoader {
+    public static List<Monster> loadMonsterData(String filename) {
+        List<Monster> monsterList = new ArrayList<>();
 
-    public MonsterData() {
-        this.monsters = new ArrayList<>();
-        this.collectedMonsters = new ArrayList<>();
+        try (BufferedReader reader = new BufferedReader(new FileReader(filename))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String[] tokens = line.split(",");
+                if (tokens.length >= 9) {
+                    String name = tokens[1];
+                    int level = Integer.parseInt(tokens[2]);
+                    String type = tokens[3];
+                    int hp = Integer.parseInt(tokens[4]);
+                    int attack = Integer.parseInt(tokens[5]);
+                    int speed = Integer.parseInt(tokens[6]);
+                    int growthHp = Integer.parseInt(tokens[7]);
+                    int growthAttack = Integer.parseInt(tokens[8]);
+                    int evolutionLevel = Integer.parseInt(tokens[9]);
 
-        // 포켓몬 데이터를 추가하세요.
-        // 예시: monsters.add(new Monster("이름", 레벨, "타입", HP, 공격력, 속도, 성장 체력, 성장 공격력, 진화 레벨));
-        monsters.add(new Monster("피카츄", 5, "전기", 35, 55, 40, 3, 3, 16));
-        monsters.add(new Monster("이상해씨", 5, "풀", 45, 49, 45, 2, 2, 16));
-        monsters.add(new Monster("꼬부기", 5, "물", 44, 48, 43, 2, 2, 16));
-        monsters.add(new Monster("파이리", 5, "불꽃", 39, 52, 65, 2, 2, 16));
-        monsters.add(new Monster("버터플", 5, "벌레", 45, 30, 70, 2, 2, 16));
-        monsters.add(new Monster("야도란", 5, "노말", 60, 60, 90, 3, 3, 16));
-        // 추가 포켓몬 데이터를 계속해서 추가해주세요.
+                    Monster monster = new Monster(name, level, type, hp, attack, speed, growthHp, growthAttack, evolutionLevel);
+                    monsterList.add(monster);
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return monsterList;
     }
 
-    // 포켓몬 목록을 반환하는 메서드
-    public ArrayList<Monster> getPokemonList() {
-        return monsters;
-    }
+    public static void main(String[] args) {
+        List<Monster> monsterList = loadMonsterData("monster_Info.txt");
 
-    // 수집한 포켓몬 목록을 반환하는 메서드
-    public ArrayList<Monster> getCollectedPokemonList() {
-        return collectedMonsters;
-    }
-
-    // 수집한 포켓몬 목록에 포켓몬을 추가하는 메서드
-    public void addCollectedPokemon(Monster pokemon) {
-        collectedMonsters.add(pokemon);
-    }
-
-    // 다른 포켓몬을 가져오거나 다른 작업을 수행하는 메서드를 추가하세요.
-}
-
-class Monster {
-    private String name;
-    private int level;
-    private String type;
-    private int hp;
-    private int attack;
-    private int speed;
-    private int growthHp;
-    private int growthAttack;
-    private int evolutionLevel;
-
-    public Monster(String name, int level, String type, int hp, int attack, int speed, int growthHp, int growthAttack, int evolutionLevel) {
-        this.name = name;
-        this.level = level;
-        this.type = type;
-        this.hp = hp;
-        this.attack = attack;
-        this.speed = speed;
-        this.growthHp = growthHp;
-        this.growthAttack = growthAttack;
-        this.evolutionLevel = evolutionLevel;
-    }
-
-    public String getName() {
-        return this.name;
-    }
-
-    public int getLevel() {
-       return this.level;
+        for (Monster monster : monsterList) {
+            System.out.println("이름: " + monster.getName());
+            System.out.println("레벨: " + monster.getLevel());
+            System.out.println("타입: " + monster.getType());
+            System.out.println("HP: " + monster.getHp());
+            System.out.println("공격력: " + monster.getAttack());
+            System.out.println("스피드: " + monster.getSpeed());
+            System.out.println("HP 성장도: " + monster.getGrowthHp());
+            System.out.println("공격력 성장도: " + monster.getGrowthAttack());
+            System.out.println("진화 레벨: " + monster.getEvolutionLevel());
+            System.out.println();
+        }
     }
 }
