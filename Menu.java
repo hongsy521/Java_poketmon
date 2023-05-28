@@ -1,5 +1,5 @@
 package PokemonFolder14;
-
+import java.io.*;
 import java.util.Scanner;
 
 public class Menu {
@@ -7,6 +7,7 @@ public class Menu {
     private SaveLoad saveLoad;
     private PoDex podex;
     private PoCenter pokemonCenter;
+    private MonsterData monsterData;
     private Battle_Mode battleMode;
     private Collection_Mode collectionMode;
 
@@ -39,25 +40,26 @@ public class Menu {
 
             switch (choice) {
                 case 1:
+                	//플레이어 정보 보여주기
                     playerInfo.showInfo();
                     break;
                 case 2:
-                    saveLoad.saveGame();
+                    saveLoad.saveGame(playerInfo,podex,monsterData);
                     break;
                 case 3:
-                    saveLoad.loadGame();
+                    saveLoad.loadGame(playerInfo,podex,monsterData);
                     break;
-                case 4:
-                    podex.displayPoDex();
+                case 4:	//포켓몬 도감 보여주기
+                    podex.displayPodex();
                     break;
                 case 5:
-                    pokemonCenter.visitCenter();
+                    pokemonCenter.center_Store();
                     break;
                 case 6:
-                    battleMode.startBattle();
+                    battleMode.doBattle();
                     break;
                 case 7:
-                    collectionMode.collectPokemon();
+                    collectionMode.doCollect();;
                     break;
                 case 8:
                     exit = true;
@@ -65,6 +67,6 @@ public class Menu {
                 default:
                     System.out.println("잘못된 입력입니다. 다시 시도하세요.");
             }
-        }
+        }scanner.close();
     }
 }

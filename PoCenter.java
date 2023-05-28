@@ -1,14 +1,19 @@
+package PokemonFolder14;
 import java.util.Scanner;
 
-public class Pocenter {
+public class PoCenter {
     private int store_candy; // 사탕
     private int player_money; // 돈
     private int store_pokemonBall; // 포켓몬볼
     private int store_remedy; // 상처약
     private String player_changedName; // 이름변경
     private Scanner scanner;
+    
+    public PoCenter() {
+    	
+    }
 
-    public Pocenter(int store_candy, int store_remedy, int store_pokemonBall, int player_money) {
+    public PoCenter(int store_candy, int store_remedy, int store_pokemonBall, int player_money) {
         this.store_candy = store_candy;
         this.store_remedy = store_remedy;
         this.store_pokemonBall = store_pokemonBall;
@@ -19,7 +24,7 @@ public class Pocenter {
 
     public void change_Name(String player_changedName) {
         System.out.println("변경할 이름을 작성해주세요.");
-        this.player_changedName = scanner.next();
+        this.player_changedName = scanner.next();			//내포켓몬 리스트에 2번인덱스로 바꿔야함
         System.out.println(player_changedName + "로 이름이 변경되었습니다.");
     }
 
@@ -46,7 +51,8 @@ public class Pocenter {
         }
     }
 
-    public void change_Money() {
+    public void change_Money(int price) {
+    	
         player_money -= price;
         System.out.println("현재 지갑에 " + player_money + "원이 있습니다.");
     }
